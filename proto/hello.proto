@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+// 定义生成的 Go 代码的包路径为 ./proto。这决定了 Go 代码生成时的导入路径（例如，grpc-helloworld/proto）。
+option go_package = "./proto";
+
+// 引入其它proto
+import "proto/home.proto";
+
+
+package hello;
+
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloResp) {}
+}
+
+message HelloRequest {
+  string name = 1;
+  int32 sex = 2;
+  repeated string tags = 3;
+  enum Sex {
+    option allow_alias = true;
+    MALE = 0;
+    FEMALE = 1;
+    OTHER = 1;
+  }
+  home.Home home = 4;
+}
+
+message HelloResp{
+  string message = 1;
+}
